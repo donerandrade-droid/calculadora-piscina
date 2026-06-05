@@ -2,369 +2,285 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PoolTech — Diagnóstico de Piscina</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO BÁSICO -->
+    <title>Calculadora de Piscina | Volume e Produtos Químicos</title>
+    <meta name="description" content="Calculadora gratuita de piscina. Calcule o volume e a quantidade exata de sal, cloro, clarificador, algicida, redutor de pH e outros produtos para sua piscina.">
+    <meta name="keywords" content="calculadora piscina, volume piscina, quantidade sal piscina, cloro piscina, clarificador piscina, algicida, redutor de ph piscina, produtos piscina, gerador de cloro">
+    <meta name="author" content="Doner Andrade">
+    <meta name="robots" content="index, follow">
+
+    <!-- SEO - OPEN GRAPH (aparece quando compartilhado no WhatsApp, Facebook etc) -->
+    <meta property="og:title" content="Calculadora de Piscina | Volume e Produtos Químicos">
+    <meta property="og:description" content="Calcule o volume da sua piscina e a quantidade exata de cada produto químico. Gratuito e fácil de usar!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://donerandrade-droid.github.io/calculadora-piscina/">
+    <meta property="og:locale" content="pt_BR">
+
+    <!-- SEO - TWITTER CARD -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Calculadora de Piscina | Volume e Produtos Químicos">
+    <meta name="twitter:description" content="Calcule o volume da sua piscina e a quantidade exata de cada produto químico. Gratuito e fácil de usar!">
+
     <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3144/3144564.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="container">
+        <h1>🏊‍♂️ Calculadora & Diagnóstico de Piscina</h1>
+        <p class="subtitle">Insira os dados da sua piscina para calcular o volume e gerenciar os parâmetros químicos.</p>
+        <hr>
 
-<div class="app-shell">
-
-    <!-- HEADER FIXO -->
-    <header class="top-bar">
-        <div class="logo">
-            <span class="logo-icon">◈</span>
-            <span class="logo-text">PoolTech</span>
-        </div>
-        <div class="top-bar-right">
-            <!-- SELETOR DE IDIOMA -->
-            <div class="lang-selector">
-                <button class="lang-btn active" data-lang="pt" onclick="aplicarIdioma('pt')">🇧🇷 PT</button>
-                <button class="lang-btn" data-lang="en" onclick="aplicarIdioma('en')">🇺🇸 EN</button>
-                <button class="lang-btn" data-lang="es" onclick="aplicarIdioma('es')">🇦🇷 ES</button>
-            </div>
-            <button class="btn-historico-topo" onclick="abrirHistorico()">
-                <span class="hist-icon">⏱</span>
-                <span data-i18n="header.historico">Histórico</span>
-            </button>
-        </div>
-    </header>
-
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <p class="hero-tag" data-i18n="hero.tag">Sistema de Diagnóstico</p>
-            <h1 class="hero-title">
-                <span data-i18n="hero.titulo1">Sua piscina</span><br>
-                <em data-i18n="hero.titulo2">em equilíbrio.</em>
-            </h1>
-            <p class="hero-sub" data-i18n="hero.sub">Calcule volumes, produtos e monitore a salinidade em poucos passos.</p>
-        </div>
-        <div class="hero-deco">
-            <div class="deco-ring r1"></div>
-            <div class="deco-ring r2"></div>
-            <div class="deco-ring r3"></div>
-        </div>
-    </section>
-
-    <!-- COLUNA DIREITA (desktop) -->
-    <div class="right-col">
-
-    <!-- NAVEGAÇÃO DE PASSOS -->
-    <nav class="steps-nav">
-        <button class="step-btn active" data-step="1" onclick="irParaPasso(1)">
-            <span class="step-num">01</span>
-            <span class="step-label" data-i18n="step.volume">Volume</span>
-        </button>
-        <div class="step-line"></div>
-        <button class="step-btn" data-step="2" onclick="irParaPasso(2)">
-            <span class="step-num">02</span>
-            <span class="step-label" data-i18n="step.produtos">Produtos</span>
-        </button>
-        <div class="step-line"></div>
-        <button class="step-btn" data-step="3" onclick="irParaPasso(3)">
-            <span class="step-num">03</span>
-            <span class="step-label" data-i18n="step.salinidade">Salinidade</span>
-        </button>
-        <div class="step-line"></div>
-        <button class="step-btn" data-step="4" onclick="irParaPasso(4)">
-            <span class="step-num">04</span>
-            <span class="step-label" data-i18n="step.bomba">Bomba</span>
-        </button>
-    </nav>
-
-    <main class="main-content">
-
-        <!-- ==================== PASSO 1: VOLUME ==================== -->
-        <section class="passo" id="passo-1">
-            <div class="passo-header">
-                <span class="passo-numero">01</span>
-                <div>
-                    <h2 class="passo-titulo" data-i18n="p1.titulo">Volume da Piscina</h2>
-                    <p class="passo-desc" data-i18n="p1.desc">Selecione o formato e informe as dimensões.</p>
+        <!-- SEÇÃO 1: FORMATO DA PISCINA -->
+        <section class="card">
+            <h2>1. Qual o formato da sua piscina?</h2>
+            <div class="formatos-grid">
+                <div class="formato-btn ativo" onclick="selecionarFormato('retangular')">
+                    <span class="formato-icon">🟦</span>
+                    <span>Retangular</span>
                 </div>
-            </div>
-
-            <div class="formato-tabs">
-                <button class="fmt-btn active" onclick="mudarAba('retangular', this)">
-                    <svg class="pool-icon" viewBox="0 0 40 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="2" y="2" width="36" height="24" rx="2" stroke="currentColor" stroke-width="2.2" fill="none"/>
-                        <line x1="2" y1="10" x2="38" y2="10" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3,2"/>
-                        <line x1="12" y1="2" x2="12" y2="26" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3,2"/>
-                        <circle cx="20" cy="17" r="3" fill="currentColor" opacity="0.25"/>
-                    </svg>
-                    <span data-i18n="p1.retangular">Retangular</span>
-                </button>
-                <button class="fmt-btn" onclick="mudarAba('redonda', this)">
-                    <svg class="pool-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="16" cy="16" r="13" stroke="currentColor" stroke-width="2.2" fill="none"/>
-                        <circle cx="16" cy="16" r="7" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3,2" fill="none"/>
-                        <circle cx="16" cy="16" r="2.5" fill="currentColor" opacity="0.3"/>
-                    </svg>
-                    <span data-i18n="p1.redonda">Redonda</span>
-                </button>
-                <button class="fmt-btn" onclick="mudarAba('oval', this)">
-                    <svg class="pool-icon" viewBox="0 0 44 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <ellipse cx="22" cy="14" rx="20" ry="11" stroke="currentColor" stroke-width="2.2" fill="none"/>
-                        <ellipse cx="22" cy="14" rx="11" ry="6" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3,2" fill="none"/>
-                        <circle cx="22" cy="14" r="2.5" fill="currentColor" opacity="0.3"/>
-                    </svg>
-                    <span data-i18n="p1.oval">Oval</span>
-                </button>
-                <button class="fmt-btn" onclick="mudarAba('irregular', this)">
-                    <svg class="pool-icon" viewBox="0 0 44 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 20 Q2 14 6 8 Q12 2 20 3 Q30 2 38 8 Q44 13 40 20 Q36 28 26 27 Q18 28 12 26 Q6 25 6 20Z" stroke="currentColor" stroke-width="2.2" fill="none"/>
-                        <path d="M12 18 Q10 14 13 10 Q18 6 24 7 Q31 6 35 11 Q38 15 35 19 Q31 24 24 23 Q16 24 12 18Z" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3,2" fill="none"/>
-                        <circle cx="24" cy="15" r="2.5" fill="currentColor" opacity="0.3"/>
-                    </svg>
-                    <span data-i18n="p1.irregular">Irregular</span>
-                </button>
-            </div>
-
-            <div id="aba-retangular" class="conteudo-formato">
-                <div class="input-duo">
-                    <div class="input-group-titled">
-                        <h3 class="grupo-title" data-i18n="p1.fundaTitulo">🌊 Parte Funda</h3>
-                        <div class="input-field">
-                            <label for="compFundo" data-i18n="p1.comprimento">Comprimento</label>
-                            <div class="input-wrap"><input type="number" id="compFundo" value="4.0" step="0.1" inputmode="decimal"><span class="unit">m</span></div>
-                        </div>
-                        <div class="input-field">
-                            <label for="largFundo" data-i18n="p1.largura">Largura</label>
-                            <div class="input-wrap"><input type="number" id="largFundo" value="2.65" step="0.01" inputmode="decimal"><span class="unit">m</span></div>
-                        </div>
-                        <div class="input-field">
-                            <label for="profFundo" data-i18n="p1.profundidade">Profundidade</label>
-                            <div class="input-wrap"><input type="number" id="profFundo" value="1.40" step="0.1" inputmode="decimal"><span class="unit">m</span></div>
-                        </div>
-                    </div>
-                    <div class="input-group-titled">
-                        <h3 class="grupo-title" data-i18n="p1.prainhaTitulo">🏖 Prainha / Rasa</h3>
-                        <div class="input-field">
-                            <label for="compPrainha" data-i18n="p1.comprimento">Comprimento</label>
-                            <div class="input-wrap"><input type="number" id="compPrainha" value="1.0" step="0.1" inputmode="decimal"><span class="unit">m</span></div>
-                        </div>
-                        <div class="input-field">
-                            <label for="largPrainha" data-i18n="p1.largura">Largura</label>
-                            <div class="input-wrap"><input type="number" id="largPrainha" value="2.65" step="0.01" inputmode="decimal"><span class="unit">m</span></div>
-                        </div>
-                        <div class="input-field">
-                            <label for="profPrainha" data-i18n="p1.profundidade">Profundidade</label>
-                            <div class="input-wrap"><input type="number" id="profPrainha" value="0.40" step="0.1" inputmode="decimal"><span class="unit">m</span></div>
-                        </div>
-                    </div>
+                <div class="formato-btn" onclick="selecionarFormato('redonda')">
+                    <span class="formato-icon">⭕</span>
+                    <span>Redonda</span>
                 </div>
-            </div>
-
-            <div id="aba-redonda" class="conteudo-formato hidden">
-                <div class="input-field"><label for="diametroRedonda" data-i18n="p1.diametro">Diâmetro</label><div class="input-wrap"><input type="number" id="diametroRedonda" placeholder="3.5" step="0.1" inputmode="decimal"><span class="unit">m</span></div></div>
-                <div class="input-field"><label for="profRedonda" data-i18n="p1.profMedia">Profundidade Média</label><div class="input-wrap"><input type="number" id="profRedonda" placeholder="1.20" step="0.1" inputmode="decimal"><span class="unit">m</span></div></div>
-            </div>
-
-            <div id="aba-oval" class="conteudo-formato hidden">
-                <div class="input-field"><label for="compOval" data-i18n="p1.compMaior">Comprimento Maior</label><div class="input-wrap"><input type="number" id="compOval" placeholder="6.0" step="0.1" inputmode="decimal"><span class="unit">m</span></div></div>
-                <div class="input-field"><label for="largOval" data-i18n="p1.largMaior">Largura Maior</label><div class="input-wrap"><input type="number" id="largOval" placeholder="3.0" step="0.1" inputmode="decimal"><span class="unit">m</span></div></div>
-                <div class="input-field"><label for="profOval" data-i18n="p1.profMedia">Profundidade Média</label><div class="input-wrap"><input type="number" id="profOval" placeholder="1.40" step="0.1" inputmode="decimal"><span class="unit">m</span></div></div>
-            </div>
-
-            <div id="aba-irregular" class="conteudo-formato hidden">
-                <div class="input-field"><label for="compIrregular" data-i18n="p1.compMax">Comprimento Máximo</label><div class="input-wrap"><input type="number" id="compIrregular" placeholder="7.0" step="0.1" inputmode="decimal"><span class="unit">m</span></div></div>
-                <div class="input-field"><label for="largIrregular" data-i18n="p1.largMax">Largura Máxima</label><div class="input-wrap"><input type="number" id="largIrregular" placeholder="3.5" step="0.1" inputmode="decimal"><span class="unit">m</span></div></div>
-                <div class="input-field"><label for="profIrregular" data-i18n="p1.profMedia">Profundidade Média</label><div class="input-wrap"><input type="number" id="profIrregular" placeholder="1.30" step="0.1" inputmode="decimal"><span class="unit">m</span></div></div>
-            </div>
-
-            <div class="acoes-passo">
-                <button onclick="calcularVolume()" class="btn-acao btn-primary" data-i18n="p1.btnCalc">💧 Calcular Volume</button>
-                <button onclick="zerarPainel()" class="btn-acao btn-ghost" data-i18n="p1.btnZerar">♻️ Zerar</button>
-            </div>
-
-            <div id="resultado-volume" class="resultado-card hidden">
-                <div class="resultado-volume-grid">
-                    <div class="vol-item destaque">
-                        <span class="vol-valor" id="resLitros">—</span>
-                        <span class="vol-label" data-i18n="vol.litros">Litros</span>
-                    </div>
-                    <div class="vol-item">
-                        <span class="vol-valor" id="resM3">—</span>
-                        <span class="vol-label" data-i18n="vol.m3">m³</span>
-                    </div>
+                <div class="formato-btn" onclick="selecionarFormato('oval')">
+                    <span class="formato-icon">🔵</span>
+                    <span>Oval</span>
                 </div>
-                <button onclick="irParaPasso(2)" class="btn-proximo" data-i18n="p1.proxBtn">Próximo: Produtos →</button>
+                <div class="formato-btn" onclick="selecionarFormato('irregular')">
+                    <span class="formato-icon">🔷</span>
+                    <span>Irregular</span>
+                </div>
             </div>
         </section>
 
-        <!-- ==================== PASSO 2: PRODUTOS ==================== -->
-        <section class="passo hidden" id="passo-2">
-            <div class="passo-header">
-                <span class="passo-numero">02</span>
-                <div>
-                    <h2 class="passo-titulo" data-i18n="p2.titulo">Produtos Químicos</h2>
-                    <p class="passo-desc" data-i18n="p2.desc">Preencha apenas os produtos que vai usar.</p>
-                </div>
-            </div>
+        <!-- SEÇÃO 2: DIMENSÕES -->
+        <section class="card">
+            <h2>2. Dimensões da Piscina (Metros)</h2>
 
-            <div class="produtos-lista">
-                <div class="produto-item">
-                    <div class="produto-info"><span class="p-icon">🧂</span><div><strong data-i18n="p2.sal">Sal</strong><small data-i18n="p2.salDose">g por litro</small></div></div>
-                    <div class="input-wrap compact"><input type="number" id="doseSal" placeholder="Ex: 4" step="0.1" inputmode="decimal"><span class="unit">g/L</span></div>
-                    <div class="resultado-inline hidden" id="resSalDiv"><span data-i18n="p2.adicionar">Adicionar:</span> <span id="resSal">—</span> <em>kg</em></div>
-                </div>
-                <div class="produto-item">
-                    <div class="produto-info"><span class="p-icon">🔽</span><div><strong data-i18n="p2.redPh">Redutor de pH</strong><small data-i18n="p2.dose1000">ml por 1.000L</small></div></div>
-                    <div class="input-wrap compact"><input type="number" id="doseRedutorPh" placeholder="Ex: 10" step="0.1" inputmode="decimal"><span class="unit">ml</span></div>
-                    <div class="resultado-inline hidden" id="resRedutorPhDiv"><span data-i18n="p2.adicionar">Adicionar:</span> <span id="resRedutorPh">—</span> <em>ml</em></div>
-                </div>
-                <div class="produto-item">
-                    <div class="produto-info"><span class="p-icon">🔼</span><div><strong data-i18n="p2.barrilha">Barrilha</strong><small data-i18n="p2.doseg">g por 1.000L</small></div></div>
-                    <div class="input-wrap compact"><input type="number" id="doseBarrilha" placeholder="Ex: 10" step="0.1" inputmode="decimal"><span class="unit">g</span></div>
-                    <div class="resultado-inline hidden" id="resBarrilhaDiv"><span data-i18n="p2.adicionar">Adicionar:</span> <span id="resBarrilha">—</span> <em>g</em></div>
-                </div>
-                <div class="produto-item">
-                    <div class="produto-info"><span class="p-icon">✨</span><div><strong data-i18n="p2.clarif">Clarificador</strong><small data-i18n="p2.dose1000">ml por 1.000L</small></div></div>
-                    <div class="input-wrap compact"><input type="number" id="doseClarificador" placeholder="Ex: 15" step="0.1" inputmode="decimal"><span class="unit">ml</span></div>
-                    <div class="resultado-inline hidden" id="resClarificadorDiv"><span data-i18n="p2.adicionar">Adicionar:</span> <span id="resClarificador">—</span> <em>ml</em></div>
-                </div>
-                <div class="produto-item">
-                    <div class="produto-info"><span class="p-icon">🌿</span><div><strong data-i18n="p2.algicida">Algicida</strong><small data-i18n="p2.dose1000">ml por 1.000L</small></div></div>
-                    <div class="input-wrap compact"><input type="number" id="doseAlgicida" placeholder="Ex: 10" step="0.1" inputmode="decimal"><span class="unit">ml</span></div>
-                    <div class="resultado-inline hidden" id="resAlgicidaDiv"><span data-i18n="p2.adicionar">Adicionar:</span> <span id="resAlgicida">—</span> <em>ml</em></div>
-                </div>
-                <div class="produto-item">
-                    <div class="produto-info"><span class="p-icon">🧪</span><div><strong data-i18n="p2.cloro">Cloro Manutenção</strong><small data-i18n="p2.doseg">g por 1.000L</small></div></div>
-                    <div class="input-wrap compact"><input type="number" id="doseCloro" placeholder="Ex: 4" step="0.1" inputmode="decimal"><span class="unit">g</span></div>
-                    <div class="resultado-inline hidden" id="resCloroDiv"><span data-i18n="p2.adicionar">Adicionar:</span> <span id="resCloro">—</span> <em>g</em></div>
-                </div>
-                <div class="produto-item">
-                    <div class="produto-info"><span class="p-icon">⚡</span><div><strong data-i18n="p2.choque">Cloro de Choque</strong><small data-i18n="p2.doseg">g por 1.000L</small></div></div>
-                    <div class="input-wrap compact"><input type="number" id="doseCloroChoque" placeholder="Ex: 20" step="0.1" inputmode="decimal"><span class="unit">g</span></div>
-                    <div class="resultado-inline hidden" id="resCloroChoqueDiv"><span data-i18n="p2.adicionar">Adicionar:</span> <span id="resCloroChoque">—</span> <em>g</em></div>
-                </div>
-                <div class="produto-item">
-                    <div class="produto-info"><span class="p-icon">🌀</span><div><strong data-i18n="p2.floc">Floculante</strong><small data-i18n="p2.dose1000">ml por 1.000L</small></div></div>
-                    <div class="input-wrap compact"><input type="number" id="doseFloculante" placeholder="Ex: 10" step="0.1" inputmode="decimal"><span class="unit">ml</span></div>
-                    <div class="resultado-inline hidden" id="resFloculanteDiv"><span data-i18n="p2.adicionar">Adicionar:</span> <span id="resFloculante">—</span> <em>ml</em></div>
-                </div>
-            </div>
-
-            <div class="acoes-passo">
-                <button onclick="calcularProdutos()" class="btn-acao btn-primary" style="background: linear-gradient(135deg, #059669, #10b981);" data-i18n="p2.btnCalc">🧴 Calcular Produtos</button>
-            </div>
-
-            <div id="resultado-produtos" class="resultado-card hidden">
-                <button onclick="irParaPasso(3)" class="btn-proximo" data-i18n="p2.proxBtn">Próximo: Salinidade →</button>
-            </div>
-
-            <button onclick="irParaPasso(1)" class="btn-voltar" data-i18n="p2.voltar">← Voltar</button>
-        </section>
-
-        <!-- ==================== PASSO 3: SALINIDADE ==================== -->
-        <section class="passo hidden" id="passo-3">
-            <div class="passo-header">
-                <span class="passo-numero">03</span>
-                <div>
-                    <h2 class="passo-titulo" data-i18n="p3.titulo">Diagnóstico do Gerador</h2>
-                    <p class="passo-desc" data-i18n="p3.desc">Leitura do visor de salinidade.</p>
-                </div>
-            </div>
-
-            <div class="input-field">
-                <label for="marcaGerador" data-i18n="p3.marca">Marca do aparelho</label>
-                <select id="marcaGerador" class="select-custom">
-                    <option value="komeco">Komeco (Bright / Home)</option>
-                    <option value="fluidra">Fluidra / AstralPool</option>
-                    <option value="nautilus">Nautilus (EasyClor)</option>
-                    <option value="pentair">Pentair (iChlor)</option>
-                </select>
-            </div>
-
-            <div class="input-field">
-                <label for="leituraVisor" data-i18n="p3.leitura">Leitura do visor (g/L ou ppm)</label>
-                <div class="input-wrap"><input type="number" id="leituraVisor" placeholder="Ex: 4700" value="4700" inputmode="numeric"><span class="unit">ppm</span></div>
-            </div>
-
-            <div class="acoes-passo">
-                <button onclick="calcularSalinidade()" class="btn-acao btn-primary" style="background: linear-gradient(135deg, #7c3aed, #6d28d9);" data-i18n="p3.btnCalc">🔍 Analisar Salinidade</button>
-            </div>
-
-            <div id="resultado-salinidade" class="resultado-card hidden">
-                <p id="textoDiagnostico"></p>
-                <button onclick="irParaPasso(4)" class="btn-proximo" data-i18n="p3.proxBtn">Próximo: Bomba →</button>
-            </div>
-
-            <button onclick="irParaPasso(2)" class="btn-voltar" data-i18n="p3.voltar">← Voltar</button>
-        </section>
-
-        <!-- ==================== PASSO 4: BOMBA ==================== -->
-        <section class="passo hidden" id="passo-4">
-            <div class="passo-header">
-                <span class="passo-numero">04</span>
-                <div>
-                    <h2 class="passo-titulo" data-i18n="p4.titulo">Bomba e Filtração</h2>
-                    <p class="passo-desc" data-i18n="p4.desc">Tempo ideal de recirculação da água.</p>
-                </div>
-            </div>
-
-            <div class="info-box" data-i18n="p4.info">
-                💡 Toda a água deve ser filtrada pelo menos uma vez por dia para uma piscina saudável.
-            </div>
-
-            <div class="input-field">
-                <label for="vazaoBomba" data-i18n="p4.vazao">Vazão da bomba</label>
-                <div class="input-wrap"><input type="number" id="vazaoBomba" step="0.1" placeholder="Ex: 5.5" inputmode="decimal"><span class="unit">m³/h</span></div>
-                <small class="input-hint" data-i18n="p4.hint">Valor indicado no corpo do motor</small>
-            </div>
-
-            <div class="acoes-passo">
-                <button onclick="calcularFiltragem()" class="btn-acao btn-primary" style="background: linear-gradient(135deg, #0284c7, #06b6d4);" data-i18n="p4.btnCalc">⏱ Calcular Filtração</button>
-            </div>
-
-            <div id="resultado-bomba" class="resultado-card hidden">
-                <div id="textoBomba"></div>
-                <div class="salvar-box">
-                    <p class="salvar-titulo" data-i18n="salvar.titulo">💾 Salvar este tratamento no histórico?</p>
-                    <div class="input-field">
-                        <label for="obsHistorico" data-i18n="salvar.obs">Observações (opcional)</label>
-                        <input type="text" id="obsHistorico" data-i18n="salvar.placeholder" placeholder="Ex: Água verde, após chuva...">
+            <!-- RETANGULAR -->
+            <div id="camposRetangular">
+                <div class="row">
+                    <div class="col">
+                        <h3>Parte Funda</h3>
+                        <label>Comprimento (m):</label>
+                        <input type="number" id="compFundo" value="4.0" step="0.1">
+                        <label>Largura (m):</label>
+                        <input type="number" id="largFundo" value="2.65" step="0.01">
+                        <label>Profundidade (m):</label>
+                        <input type="number" id="profFundo" value="1.40" step="0.1">
                     </div>
-                    <button onclick="salvarHistorico()" class="btn-acao btn-salvar" data-i18n="salvar.btn">✅ Salvar Tratamento</button>
+                    <div class="col">
+                        <h3>Prainha / Área Rasa</h3>
+                        <label>Comprimento (m):</label>
+                        <input type="number" id="compPrainha" value="1.0" step="0.1">
+                        <label>Largura (m):</label>
+                        <input type="number" id="largPrainha" value="2.65" step="0.01">
+                        <label>Profundidade (m):</label>
+                        <input type="number" id="profPrainha" value="0.40" step="0.1">
+                    </div>
                 </div>
             </div>
 
-            <button onclick="irParaPasso(3)" class="btn-voltar" data-i18n="p4.voltar">← Voltar</button>
+            <!-- REDONDA -->
+            <div id="camposRedonda" class="hidden">
+                <p class="dica">💡 O diâmetro é a medida de uma extremidade à outra, passando pelo centro.</p>
+                <div class="row">
+                    <div class="col">
+                        <label>Diâmetro (m):</label>
+                        <input type="number" id="diametroRedonda" placeholder="Ex: 5.0" step="0.1">
+                        <label>Profundidade média (m):</label>
+                        <input type="number" id="profRedonda" placeholder="Ex: 1.40" step="0.1">
+                    </div>
+                </div>
+            </div>
+
+            <!-- OVAL -->
+            <div id="camposOval" class="hidden">
+                <p class="dica">💡 Meça o comprimento maior e o comprimento menor da piscina.</p>
+                <div class="row">
+                    <div class="col">
+                        <label>Comprimento maior (m):</label>
+                        <input type="number" id="compMaiorOval" placeholder="Ex: 6.0" step="0.1">
+                        <label>Comprimento menor (m):</label>
+                        <input type="number" id="compMenorOval" placeholder="Ex: 3.0" step="0.1">
+                        <label>Profundidade média (m):</label>
+                        <input type="number" id="profOval" placeholder="Ex: 1.40" step="0.1">
+                    </div>
+                </div>
+            </div>
+
+            <!-- IRREGULAR -->
+            <div id="camposIrregular" class="hidden">
+                <p class="dica">💡 Para piscinas com formatos personalizados, informe o volume diretamente. Você pode calcular dividindo a piscina em partes retangulares e somando os volumes.</p>
+                <div class="row">
+                    <div class="col">
+                        <label>Volume total da piscina (m³):</label>
+                        <input type="number" id="volumeIrregular" placeholder="Ex: 15.5" step="0.1">
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="calcularTudo()">💧 Calcular Volume</button>
         </section>
 
-    </main>
+        <!-- RESULTADO VOLUME -->
+        <section id="resultadoVolume" class="card resultado hidden">
+            <h2>📋 Relatório de Litragem</h2>
+            <div class="grid-res">
+                <p><strong>Volume Total:</strong> <span id="resLitros">0</span> Litros (<span id="resM3">0</span> m³)</p>
+                <p><strong>Configuração no Painel:</strong> <span id="resPainel">0</span></p>
+            </div>
+        </section>
 
-    </div><!-- fim right-col -->
+        <!-- SEÇÃO 3: CALCULADORA DE PRODUTOS -->
+        <section id="secaoProdutos" class="card hidden">
+            <h2>3. Calculadora de Produtos</h2>
+            <p class="subtitle-section">Informe a dosagem indicada na embalagem de cada produto. O sistema calculará a quantidade exata para a sua piscina.</p>
 
-    <!-- PAINEL DE HISTÓRICO -->
-    <div class="historico-overlay hidden" id="historico-overlay" onclick="fecharHistorico()"></div>
-    <aside class="historico-panel hidden" id="historico-panel">
-        <div class="historico-header">
-            <h2 data-i18n="hist.titulo">⏱ Histórico de Tratamentos</h2>
-            <button onclick="fecharHistorico()" class="btn-fechar">✕</button>
-        </div>
-        <div class="historico-lista" id="historico-lista">
-            <p class="historico-vazio" data-i18n="hist.vazio">Nenhum tratamento salvo ainda.</p>
-        </div>
-        <button onclick="limparHistorico()" class="btn-limpar-hist" data-i18n="hist.limpar">🗑 Limpar Histórico</button>
-    </aside>
+            <div class="produtos-grid">
+                <!-- SAL -->
+                <div class="produto-card">
+                    <div class="produto-header">
+                        <span class="produto-icon">🧂</span>
+                        <h3>Sal</h3>
+                    </div>
+                    <label>Dosagem da embalagem (g por litro):</label>
+                    <input type="number" id="doseSal" placeholder="Ex: 4" step="0.1">
+                    <div class="resultado-produto hidden" id="resSalDiv">
+                        <span class="resultado-label">Quantidade necessária:</span>
+                        <span class="resultado-valor" id="resSal">0</span>
+                        <span class="resultado-unidade">kg</span>
+                    </div>
+                </div>
 
-</div>
+                <!-- REDUTOR DE pH -->
+                <div class="produto-card">
+                    <div class="produto-header">
+                        <span class="produto-icon">🔽</span>
+                        <h3>Redutor de pH</h3>
+                    </div>
+                    <label>Dosagem da embalagem (ml por 1.000L):</label>
+                    <input type="number" id="doseRedutorPh" placeholder="Ex: 10" step="0.1">
+                    <div class="resultado-produto hidden" id="resRedutorPhDiv">
+                        <span class="resultado-label">Quantidade necessária:</span>
+                        <span class="resultado-valor" id="resRedutorPh">0</span>
+                        <span class="resultado-unidade">ml</span>
+                    </div>
+                </div>
 
-<script src="i18n.js"></script>
-<script src="script.js"></script>
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./service-worker.js')
-      .then(() => console.log('Modo Offline ativado com sucesso!'))
-      .catch((err) => console.log('Erro ao ativar modo offline:', err));
-  }
-</script>
+                <!-- BARRILHA -->
+                <div class="produto-card">
+                    <div class="produto-header">
+                        <span class="produto-icon">🔼</span>
+                        <h3>Barrilha (Aumentar pH)</h3>
+                    </div>
+                    <label>Dosagem da embalagem (g por 1.000L):</label>
+                    <input type="number" id="doseBarrilha" placeholder="Ex: 10" step="0.1">
+                    <div class="resultado-produto hidden" id="resBarrilhaDiv">
+                        <span class="resultado-label">Quantidade necessária:</span>
+                        <span class="resultado-valor" id="resBarrilha">0</span>
+                        <span class="resultado-unidade">g</span>
+                    </div>
+                </div>
+
+                <!-- CLARIFICADOR -->
+                <div class="produto-card">
+                    <div class="produto-header">
+                        <span class="produto-icon">✨</span>
+                        <h3>Clarificador</h3>
+                    </div>
+                    <label>Dosagem da embalagem (ml por 1.000L):</label>
+                    <input type="number" id="doseClarificador" placeholder="Ex: 15" step="0.1">
+                    <div class="resultado-produto hidden" id="resClarificadorDiv">
+                        <span class="resultado-label">Quantidade necessária:</span>
+                        <span class="resultado-valor" id="resClarificador">0</span>
+                        <span class="resultado-unidade">ml</span>
+                    </div>
+                </div>
+
+                <!-- ALGICIDA -->
+                <div class="produto-card">
+                    <div class="produto-header">
+                        <span class="produto-icon">🌿</span>
+                        <h3>Algicida</h3>
+                    </div>
+                    <label>Dosagem da embalagem (ml por 1.000L):</label>
+                    <input type="number" id="doseAlgicida" placeholder="Ex: 10" step="0.1">
+                    <div class="resultado-produto hidden" id="resAlgicidaDiv">
+                        <span class="resultado-label">Quantidade necessária:</span>
+                        <span class="resultado-valor" id="resAlgicida">0</span>
+                        <span class="resultado-unidade">ml</span>
+                    </div>
+                </div>
+
+                <!-- CLORO DE MANUTENÇÃO -->
+                <div class="produto-card">
+                    <div class="produto-header">
+                        <span class="produto-icon">🧪</span>
+                        <h3>Cloro de Manutenção</h3>
+                    </div>
+                    <label>Dosagem da embalagem (g por 1.000L):</label>
+                    <input type="number" id="doseCloro" placeholder="Ex: 4" step="0.1">
+                    <div class="resultado-produto hidden" id="resCloroDiv">
+                        <span class="resultado-label">Quantidade necessária:</span>
+                        <span class="resultado-valor" id="resCloro">0</span>
+                        <span class="resultado-unidade">g</span>
+                    </div>
+                </div>
+
+                <!-- CLORO DE CHOQUE -->
+                <div class="produto-card">
+                    <div class="produto-header">
+                        <span class="produto-icon">⚡</span>
+                        <h3>Cloro de Choque</h3>
+                    </div>
+                    <label>Dosagem da embalagem (g por 1.000L):</label>
+                    <input type="number" id="doseCloroChoque" placeholder="Ex: 20" step="0.1">
+                    <div class="resultado-produto hidden" id="resCloroChoqueDiv">
+                        <span class="resultado-label">Quantidade necessária:</span>
+                        <span class="resultado-valor" id="resCloroChoque">0</span>
+                        <span class="resultado-unidade">g</span>
+                    </div>
+                </div>
+
+                <!-- FLOCULANTE -->
+                <div class="produto-card">
+                    <div class="produto-header">
+                        <span class="produto-icon">🌀</span>
+                        <h3>Floculante</h3>
+                    </div>
+                    <label>Dosagem da embalagem (ml por 1.000L):</label>
+                    <input type="number" id="doseFloculante" placeholder="Ex: 10" step="0.1">
+                    <div class="resultado-produto hidden" id="resFloculanteDiv">
+                        <span class="resultado-label">Quantidade necessária:</span>
+                        <span class="resultado-valor" id="resFloculante">0</span>
+                        <span class="resultado-unidade">ml</span>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="calcularProdutos()" class="btn-produtos">🧴 Calcular Produtos</button>
+        </section>
+
+        <!-- SEÇÃO 4: DIAGNÓSTICO DO VISOR -->
+        <section class="card">
+            <h2>4. Diagnóstico do Visor do Gerador</h2>
+            <p>Insira o número atual que aparece no visor (ex: 4700 ou 3100):</p>
+            <div class="flex-visor">
+                <input type="number" id="leituraVisor" placeholder="Ex: 4700" value="4700">
+                <button onclick="calcularTudo()" class="btn-diagnostico">🔍 Analisar Painel</button>
+            </div>
+        </section>
+
+        <!-- RESULTADO DIAGNÓSTICO -->
+        <section id="resultadoDiagnostico" class="card resultado hidden">
+            <h2>🚨 Diagnóstico e Ação Recomendada</h2>
+            <p id="textoDiagnostico">Insira os dados acima para gerar o relatório.</p>
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
