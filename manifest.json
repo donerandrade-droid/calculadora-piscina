@@ -1,0 +1,17 @@
+{
+  "name": "Andrade PoolTech",
+  "short_name": "PoolTech",
+  "description": "Sistema Inteligente de Gestão e Tratamento de Piscinas",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f4f7fc",
+  "theme_color": "#0f52ba",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3144/3144564.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
