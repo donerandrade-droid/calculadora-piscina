@@ -51,32 +51,42 @@ function irParaPasso(num) {
 function calcularVolume() {
     let m3 = 0;
 
-    if (formatoAtivo === 'retangular') {
-        const cF = parseFloat(document.getElementById('compFundo').value) || 0;
-        const lF = parseFloat(document.getElementById('largFundo').value) || 0;
-        const pF = parseFloat(document.getElementById('profFundo').value) || 0;
-        const cP = parseFloat(document.getElementById('compPrainha').value) || 0;
-        const lP = parseFloat(document.getElementById('largPrainha').value) || 0;
-        const pP = parseFloat(document.getElementById('profPrainha').value) || 0;
-        m3 = (cF * lF * pF) + (cP * lP * pP);
-    } else if (formatoAtivo === 'redonda') {
-        const d = parseFloat(document.getElementById('diametroRedonda').value) || 0;
-        const p = parseFloat(document.getElementById('profRedonda').value) || 0;
-        m3 = d * d * p * 0.785;
-    } else if (formatoAtivo === 'oval') {
-        const c = parseFloat(document.getElementById('compOval').value) || 0;
-        const l = parseFloat(document.getElementById('largOval').value) || 0;
-        const p = parseFloat(document.getElementById('profOval').value) || 0;
-        m3 = c * l * p * 0.785;
-    } else if (formatoAtivo === 'irregular') {
-        const c = parseFloat(document.getElementById('compIrregular').value) || 0;
-        const l = parseFloat(document.getElementById('largIrregular').value) || 0;
-        const p = parseFloat(document.getElementById('profIrregular').value) || 0;
-        m3 = c * l * p * 0.85;
+    // Verifica se está no modo "já sei o volume"
+    const modoDirecto = document.getElementById('toggleVolumeDirecto').checked;
+    if (modoDirecto) {
+        const volDirecto = parseFloat(document.getElementById('volumeDirecto').value) || 0;
+        if (volDirecto <= 0) {
+            alert("Informe o volume da piscina em litros!");
+            return;
+        }
+        volumeTotalLitros = volDirecto;
+        m3 = volDirecto / 1000;
+    } else {
+        if (formatoAtivo === 'retangular') {
+            const cF = parseFloat(document.getElementById('compFundo').value) || 0;
+            const lF = parseFloat(document.getElementById('largFundo').value) || 0;
+            const pF = parseFloat(document.getElementById('profFundo').value) || 0;
+            const cP = parseFloat(document.getElementById('compPrainha').value) || 0;
+            const lP = parseFloat(document.getElementById('largPrainha').value) || 0;
+            const pP = parseFloat(document.getElementById('profPrainha').value) || 0;
+            m3 = (cF * lF * pF) + (cP * lP * pP);
+        } else if (formatoAtivo === 'redonda') {
+            const d = parseFloat(document.getElementById('diametroRedonda').value) || 0;
+            const p = parseFloat(document.getElementById('profRedonda').value) || 0;
+            m3 = d * d * p * 0.785;
+        } else if (formatoAtivo === 'oval') {
+            const c = parseFloat(document.getElementById('compOval').value) || 0;
+            const l = parseFloat(document.getElementById('largOval').value) || 0;
+            const p = parseFloat(document.getElementById('profOval').value) || 0;
+            m3 = c * l * p * 0.785;
+        } else if (formatoAtivo === 'irregular') {
+            const c = parseFloat(document.getElementById('compIrregular').value) || 0;
+            const l = parseFloat(document.getElementById('largIrregular').value) || 0;
+            const p = parseFloat(document.getElementById('profIrregular').value) || 0;
+            m3 = c * l * p * 0.85;
+        }
+        volumeTotalLitros = m3 * 1000;
     }
-
-    volumeTotalLitros = m3 * 1000;
-
     if (volumeTotalLitros <= 0) {
         alert("Preencha as dimensões da piscina!");
         return;
@@ -393,4 +403,141 @@ function zerarPainel() {
     volumeTotalLitros = 0;
     dadosUltimoCalculo = {};
     irParaPasso(1);
+}
+
+// =============================================
+// DROPDOWN DE IDIOMA
+// =============================================
+function toggleLangMenu() {
+    const menu = document.getElementById('langMenu');
+    menu.classList.toggle('hidden');
+}
+
+function selecionarIdioma(lang) {
+    aplicarIdioma(lang);
+    // Atualiza o botão ativo com a bandeira/sigla
+    const flags = { pt: '🇧🇷 PT', en: '🇺🇸 EN', es: '🇦🇷 ES' };
+    document.getElementById('langAtivo').textContent = flags[lang];
+    // Marca a opção ativa no menu
+    document.querySelectorAll('.lang-opcao').forEach(btn => {
+        btn.classList.toggle('ativo', btn.dataset.lang === lang);
+    });
+    document.getElementById('langMenu').classList.add('hidden');
+}
+
+// Fecha o menu ao clicar fora
+document.addEventListener('click', (e) => {
+    const dropdown = document.getElementById('langDropdown');
+    if (dropdown && !dropdown.contains(e.target)) {
+        document.getElementById('langMenu').classList.add('hidden');
+    }
+});
+
+// =============================================
+// VOLUME DIRETO (TOGGLE)
+// =============================================
+function alternarModoVolume(checkbox) {
+    const secaoFormatos = document.getElementById('secaoFormatos');
+    const inputDireto = document.getElementById('inputVolumeDirecto');
+    if (checkbox.checked) {
+        secaoFormatos.classList.add('hidden');
+        inputDireto.classList.remove('hidden');
+    } else {
+        secaoFormatos.classList.remove('hidden');
+        inputDireto.classList.add('hidden');
+    }
+}
+
+// =============================================
+// MODAL INFO DOS PRODUTOS
+// =============================================
+const infoProdutos = {
+    sal: {
+        icone: '🧂',
+        titulo: { pt: 'Sal', en: 'Salt', es: 'Sal' },
+        texto: {
+            pt: 'O sal é o insumo principal dos geradores de cloro por eletrólise. Ele é convertido em cloro ativo pelo aparelho, eliminando bactérias e micro-organismos. Diferente do cloro convencional, o sal não evapora — apenas é consumido junto com a água pelo ladrão ou respingos.',
+            en: 'Salt is the main input for electrolysis chlorine generators. It is converted into active chlorine by the device, eliminating bacteria and microorganisms. Unlike conventional chlorine, salt does not evaporate — it is only consumed along with water through splash or overflow.',
+            es: 'La sal es el insumo principal de los generadores de cloro por electrólisis. Es convertida en cloro activo por el aparato, eliminando bacterias y microorganismos. A diferencia del cloro convencional, la sal no se evapora — solo se consume junto con el agua por el desagüe o salpicaduras.'
+        }
+    },
+    redutorPh: {
+        icone: '🔽',
+        titulo: { pt: 'Redutor de pH', en: 'pH Reducer', es: 'Reductor de pH' },
+        texto: {
+            pt: 'O redutor de pH (geralmente ácido muriático ou sulfúrico) é usado quando o pH da água está acima de 7,6. pH elevado reduz a eficiência do cloro e pode causar turbidez, irritação nos olhos e incrustações nas paredes da piscina.',
+            en: 'pH reducer (usually muriatic or sulfuric acid) is used when the water pH is above 7.6. High pH reduces chlorine efficiency and can cause turbidity, eye irritation and scale on pool walls.',
+            es: 'El reductor de pH (generalmente ácido muriático o sulfúrico) se usa cuando el pH del agua supera 7,6. Un pH alto reduce la eficiencia del cloro y puede causar turbidez, irritación en los ojos e incrustaciones en las paredes.'
+        }
+    },
+    barrilha: {
+        icone: '🔼',
+        titulo: { pt: 'Barrilha', en: 'Soda Ash', es: 'Carbonato de Sodio' },
+        texto: {
+            pt: 'A barrilha (carbonato de sódio) é usada para aumentar o pH da água quando está abaixo de 7,2. pH baixo torna a água agressiva, corroendo equipamentos metálicos, irritando pele e olhos e reduzindo a vida útil do revestimento da piscina.',
+            en: 'Soda ash (sodium carbonate) is used to raise the water pH when it falls below 7.2. Low pH makes the water aggressive, corroding metal equipment, irritating skin and eyes, and reducing the lifespan of the pool lining.',
+            es: 'El carbonato de sodio se usa para aumentar el pH del agua cuando está por debajo de 7,2. Un pH bajo hace que el agua sea agresiva, corroyendo equipos metálicos, irritando la piel y los ojos y reduciendo la vida útil del revestimiento.'
+        }
+    },
+    clarificador: {
+        icone: '✨',
+        titulo: { pt: 'Clarificador', en: 'Clarifier', es: 'Clarificador' },
+        texto: {
+            pt: 'O clarificador agrupa partículas microscópicas suspensas na água (poeira, protetor solar, células mortas) em flocos maiores, que são capturados pelo filtro. Ele deixa a água cristalina e azulada. Ideal usar após muito uso da piscina ou entrada de sujeira.',
+            en: 'Clarifier groups microscopic particles suspended in the water (dust, sunscreen, dead cells) into larger flocs, which are captured by the filter. It leaves the water crystal clear and blue. Ideal to use after heavy pool use or after dirt gets in.',
+            es: 'El clarificador agrupa partículas microscópicas suspendidas en el agua (polvo, protector solar, células muertas) en flóculos más grandes que son capturados por el filtro. Deja el agua cristalina y azulada. Ideal después de mucho uso o entrada de suciedad.'
+        }
+    },
+    algicida: {
+        icone: '🌿',
+        titulo: { pt: 'Algicida', en: 'Algaecide', es: 'Algicida' },
+        texto: {
+            pt: 'O algicida previne e elimina o crescimento de algas na piscina. As algas deixam a água verde, turva e escorregadia. Deve ser usado preventivamente a cada 15 dias, ou em dose de choque quando a água já está verde.',
+            en: 'Algaecide prevents and eliminates algae growth in the pool. Algae make the water green, cloudy and slippery. It should be used preventively every 15 days, or in shock dose when the water is already green.',
+            es: 'El algicida previene y elimina el crecimiento de algas en la piscina. Las algas ponen el agua verde, turbia y resbaladiza. Debe usarse preventivamente cada 15 días, o en dosis de choque cuando el agua ya está verde.'
+        }
+    },
+    cloro: {
+        icone: '🧪',
+        titulo: { pt: 'Cloro Manutenção', en: 'Maintenance Chlorine', es: 'Cloro Mantenimiento' },
+        texto: {
+            pt: 'O cloro de manutenção é adicionado regularmente (geralmente a cada 2 a 3 dias) para manter o nível de cloro livre entre 1 e 3 ppm. Ele elimina bactérias, vírus e fungos, mantendo a água segura para o banho.',
+            en: 'Maintenance chlorine is added regularly (usually every 2 to 3 days) to keep the free chlorine level between 1 and 3 ppm. It eliminates bacteria, viruses and fungi, keeping the water safe for swimming.',
+            es: 'El cloro de mantenimiento se agrega regularmente (generalmente cada 2 a 3 días) para mantener el nivel de cloro libre entre 1 y 3 ppm. Elimina bacterias, virus y hongos, manteniendo el agua segura para el baño.'
+        }
+    },
+    choque: {
+        icone: '⚡',
+        titulo: { pt: 'Cloro de Choque', en: 'Shock Chlorine', es: 'Cloro de Choque' },
+        texto: {
+            pt: 'O cloro de choque é aplicado em dose alta para eliminar rapidamente contaminações sérias: água verde, turva, após chuva forte ou uso intenso. A dose é de 5 a 10 vezes maior que a manutenção. Após o choque, aguarde o cloro baixar antes de entrar na piscina.',
+            en: 'Shock chlorine is applied in high doses to quickly eliminate serious contamination: green water, cloudy water, after heavy rain or intense use. The dose is 5 to 10 times higher than maintenance. After shocking, wait for the chlorine to drop before entering the pool.',
+            es: 'El cloro de choque se aplica en dosis alta para eliminar rápidamente contaminaciones graves: agua verde, turbia, después de lluvias fuertes o uso intensivo. La dosis es 5 a 10 veces mayor que la de mantenimiento. Después del choque, espere que el cloro baje antes de entrar.'
+        }
+    },
+    floculante: {
+        icone: '🌀',
+        titulo: { pt: 'Floculante', en: 'Flocculant', es: 'Floculante' },
+        texto: {
+            pt: 'O floculante faz as partículas finas da água se unirem em grumos que afundam no fundo da piscina, sendo então removidos com o aspirador. Diferente do clarificador, o floculante deposita no fundo em vez de ir para o filtro. Requer aspiração manual após a aplicação.',
+            en: 'Flocculant causes fine particles in the water to clump together and sink to the bottom of the pool, where they are then removed with a vacuum. Unlike clarifier, flocculant settles on the bottom instead of going to the filter. Manual vacuuming is required after application.',
+            es: 'El floculante hace que las partículas finas del agua se unan en grumos que se hunden en el fondo de la piscina y luego se eliminan con la aspiradora. A diferencia del clarificador, el floculante se deposita en el fondo en lugar de ir al filtro. Requiere aspiración manual.'
+        }
+    }
+};
+
+function abrirInfo(produto) {
+    const info = infoProdutos[produto];
+    if (!info) return;
+    const lang = idiomaAtivo || 'pt';
+    document.getElementById('modalIcone').textContent = info.icone;
+    document.getElementById('modalTitulo').textContent = info.titulo[lang];
+    document.getElementById('modalTexto').textContent = info.texto[lang];
+    document.getElementById('modalOverlay').classList.remove('hidden');
+    document.getElementById('modalInfo').classList.remove('hidden');
+}
+
+function fecharInfo() {
+    document.getElementById('modalOverlay').classList.add('hidden');
+    document.getElementById('modalInfo').classList.add('hidden');
 }

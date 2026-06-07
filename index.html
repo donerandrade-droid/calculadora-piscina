@@ -21,14 +21,17 @@
             <span class="logo-text">PoolTech</span>
         </div>
         <div class="top-bar-right">
-            <!-- SELETOR DE IDIOMA -->
-            <div class="lang-selector">
-                <button class="lang-btn active" data-lang="pt" onclick="aplicarIdioma('pt')">🇧🇷 PT</button>
-                <button class="lang-btn" data-lang="en" onclick="aplicarIdioma('en')">🇺🇸 EN</button>
-                <button class="lang-btn" data-lang="es" onclick="aplicarIdioma('es')">🇦🇷 ES</button>
+            <!-- SELETOR DE IDIOMA DROPDOWN -->
+            <div class="lang-dropdown" id="langDropdown">
+                <button class="lang-ativo" onclick="toggleLangMenu()" id="langAtivo">🇧🇷 PT</button>
+                <div class="lang-menu hidden" id="langMenu">
+                    <button class="lang-opcao" data-lang="pt" onclick="selecionarIdioma('pt')">🇧🇷 Português</button>
+                    <button class="lang-opcao" data-lang="en" onclick="selecionarIdioma('en')">🇺🇸 English</button>
+                    <button class="lang-opcao" data-lang="es" onclick="selecionarIdioma('es')">🇦🇷 Español</button>
+                </div>
             </div>
             <button class="btn-historico-topo" onclick="abrirHistorico()">
-                <span class="hist-icon">⏱</span>
+                <span>⏱</span>
                 <span data-i18n="header.historico">Histórico</span>
             </button>
         </div>
@@ -90,6 +93,27 @@
                 </div>
             </div>
 
+            <!-- OPÇÃO: JÁ SEI O VOLUME -->
+            <div class="volume-direto-box">
+                <div class="volume-direto-toggle">
+                    <span data-i18n="p1.jasei">Já sei o volume</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggleVolumeDirecto" onchange="alternarModoVolume(this)">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div id="inputVolumeDirecto" class="hidden">
+                    <div class="input-field" style="margin-top:12px">
+                        <label for="volumeDirecto" data-i18n="p1.volumeDirectoLabel">Volume da piscina</label>
+                        <div class="input-wrap">
+                            <input type="number" id="volumeDirecto" placeholder="Ex: 15000" inputmode="decimal">
+                            <span class="unit">L</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="secaoFormatos">
             <div class="formato-tabs">
                 <button class="fmt-btn active" onclick="mudarAba('retangular', this)">
                     <svg class="pool-icon" viewBox="0 0 40 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -132,30 +156,30 @@
                         <h3 class="grupo-title" data-i18n="p1.fundaTitulo">🌊 Parte Funda</h3>
                         <div class="input-field">
                             <label for="compFundo" data-i18n="p1.comprimento">Comprimento</label>
-                            <div class="input-wrap"><input type="number" id="compFundo" value="4.0" step="0.1" inputmode="decimal"><span class="unit">m</span></div>
+                            <div class="input-wrap"><input type="number" id="compFundo" placeholder="Ex: 4.0" step="0.1" inputmode="decimal"><span class="unit">m</span></div>
                         </div>
                         <div class="input-field">
                             <label for="largFundo" data-i18n="p1.largura">Largura</label>
-                            <div class="input-wrap"><input type="number" id="largFundo" value="2.65" step="0.01" inputmode="decimal"><span class="unit">m</span></div>
+                            <div class="input-wrap"><input type="number" id="largFundo" placeholder="Ex: 2.5" step="0.01" inputmode="decimal"><span class="unit">m</span></div>
                         </div>
                         <div class="input-field">
                             <label for="profFundo" data-i18n="p1.profundidade">Profundidade</label>
-                            <div class="input-wrap"><input type="number" id="profFundo" value="1.40" step="0.1" inputmode="decimal"><span class="unit">m</span></div>
+                            <div class="input-wrap"><input type="number" id="profFundo" placeholder="Ex: 1.40" step="0.1" inputmode="decimal"><span class="unit">m</span></div>
                         </div>
                     </div>
                     <div class="input-group-titled">
                         <h3 class="grupo-title" data-i18n="p1.prainhaTitulo">🏖 Prainha / Rasa</h3>
                         <div class="input-field">
                             <label for="compPrainha" data-i18n="p1.comprimento">Comprimento</label>
-                            <div class="input-wrap"><input type="number" id="compPrainha" value="1.0" step="0.1" inputmode="decimal"><span class="unit">m</span></div>
+                            <div class="input-wrap"><input type="number" id="compPrainha" placeholder="Ex: 1.0" step="0.1" inputmode="decimal"><span class="unit">m</span></div>
                         </div>
                         <div class="input-field">
                             <label for="largPrainha" data-i18n="p1.largura">Largura</label>
-                            <div class="input-wrap"><input type="number" id="largPrainha" value="2.65" step="0.01" inputmode="decimal"><span class="unit">m</span></div>
+                            <div class="input-wrap"><input type="number" id="largPrainha" placeholder="Ex: 2.5" step="0.01" inputmode="decimal"><span class="unit">m</span></div>
                         </div>
                         <div class="input-field">
                             <label for="profPrainha" data-i18n="p1.profundidade">Profundidade</label>
-                            <div class="input-wrap"><input type="number" id="profPrainha" value="0.40" step="0.1" inputmode="decimal"><span class="unit">m</span></div>
+                            <div class="input-wrap"><input type="number" id="profPrainha" placeholder="Ex: 0.40" step="0.1" inputmode="decimal"><span class="unit">m</span></div>
                         </div>
                     </div>
                 </div>
@@ -177,6 +201,8 @@
                 <div class="input-field"><label for="largIrregular" data-i18n="p1.largMax">Largura Máxima</label><div class="input-wrap"><input type="number" id="largIrregular" placeholder="3.5" step="0.1" inputmode="decimal"><span class="unit">m</span></div></div>
                 <div class="input-field"><label for="profIrregular" data-i18n="p1.profMedia">Profundidade Média</label><div class="input-wrap"><input type="number" id="profIrregular" placeholder="1.30" step="0.1" inputmode="decimal"><span class="unit">m</span></div></div>
             </div>
+
+            </div><!-- fim secaoFormatos -->
 
             <div class="acoes-passo">
                 <button onclick="calcularVolume()" class="btn-acao btn-primary" data-i18n="p1.btnCalc">💧 Calcular Volume</button>
@@ -210,42 +236,74 @@
 
             <div class="produtos-lista">
                 <div class="produto-item">
-                    <div class="produto-info"><span class="p-icon">🧂</span><div><strong data-i18n="p2.sal">Sal</strong><small data-i18n="p2.salDose">g por litro</small></div></div>
+                    <div class="produto-info">
+                        <span class="p-icon">🧂</span>
+                        <div><strong data-i18n="p2.sal">Sal</strong><small data-i18n="p2.salDose">g por litro</small></div>
+                        <button class="btn-info" onclick="abrirInfo('sal')">?</button>
+                    </div>
                     <div class="input-wrap compact"><input type="number" id="doseSal" placeholder="Ex: 4" step="0.1" inputmode="decimal"><span class="unit">g/L</span></div>
                     <div class="resultado-inline hidden" id="resSalDiv"><span data-i18n="p2.adicionar">Adicionar:</span> <span id="resSal">—</span> <em>kg</em></div>
                 </div>
                 <div class="produto-item">
-                    <div class="produto-info"><span class="p-icon">🔽</span><div><strong data-i18n="p2.redPh">Redutor de pH</strong><small data-i18n="p2.dose1000">ml por 1.000L</small></div></div>
+                    <div class="produto-info">
+                        <span class="p-icon">🔽</span>
+                        <div><strong data-i18n="p2.redPh">Redutor de pH</strong><small data-i18n="p2.dose1000">ml por 1.000L</small></div>
+                        <button class="btn-info" onclick="abrirInfo('redutorPh')">?</button>
+                    </div>
                     <div class="input-wrap compact"><input type="number" id="doseRedutorPh" placeholder="Ex: 10" step="0.1" inputmode="decimal"><span class="unit">ml</span></div>
                     <div class="resultado-inline hidden" id="resRedutorPhDiv"><span data-i18n="p2.adicionar">Adicionar:</span> <span id="resRedutorPh">—</span> <em>ml</em></div>
                 </div>
                 <div class="produto-item">
-                    <div class="produto-info"><span class="p-icon">🔼</span><div><strong data-i18n="p2.barrilha">Barrilha</strong><small data-i18n="p2.doseg">g por 1.000L</small></div></div>
+                    <div class="produto-info">
+                        <span class="p-icon">🔼</span>
+                        <div><strong data-i18n="p2.barrilha">Barrilha</strong><small data-i18n="p2.doseg">g por 1.000L</small></div>
+                        <button class="btn-info" onclick="abrirInfo('barrilha')">?</button>
+                    </div>
                     <div class="input-wrap compact"><input type="number" id="doseBarrilha" placeholder="Ex: 10" step="0.1" inputmode="decimal"><span class="unit">g</span></div>
                     <div class="resultado-inline hidden" id="resBarrilhaDiv"><span data-i18n="p2.adicionar">Adicionar:</span> <span id="resBarrilha">—</span> <em>g</em></div>
                 </div>
                 <div class="produto-item">
-                    <div class="produto-info"><span class="p-icon">✨</span><div><strong data-i18n="p2.clarif">Clarificador</strong><small data-i18n="p2.dose1000">ml por 1.000L</small></div></div>
+                    <div class="produto-info">
+                        <span class="p-icon">✨</span>
+                        <div><strong data-i18n="p2.clarif">Clarificador</strong><small data-i18n="p2.dose1000">ml por 1.000L</small></div>
+                        <button class="btn-info" onclick="abrirInfo('clarificador')">?</button>
+                    </div>
                     <div class="input-wrap compact"><input type="number" id="doseClarificador" placeholder="Ex: 15" step="0.1" inputmode="decimal"><span class="unit">ml</span></div>
                     <div class="resultado-inline hidden" id="resClarificadorDiv"><span data-i18n="p2.adicionar">Adicionar:</span> <span id="resClarificador">—</span> <em>ml</em></div>
                 </div>
                 <div class="produto-item">
-                    <div class="produto-info"><span class="p-icon">🌿</span><div><strong data-i18n="p2.algicida">Algicida</strong><small data-i18n="p2.dose1000">ml por 1.000L</small></div></div>
+                    <div class="produto-info">
+                        <span class="p-icon">🌿</span>
+                        <div><strong data-i18n="p2.algicida">Algicida</strong><small data-i18n="p2.dose1000">ml por 1.000L</small></div>
+                        <button class="btn-info" onclick="abrirInfo('algicida')">?</button>
+                    </div>
                     <div class="input-wrap compact"><input type="number" id="doseAlgicida" placeholder="Ex: 10" step="0.1" inputmode="decimal"><span class="unit">ml</span></div>
                     <div class="resultado-inline hidden" id="resAlgicidaDiv"><span data-i18n="p2.adicionar">Adicionar:</span> <span id="resAlgicida">—</span> <em>ml</em></div>
                 </div>
                 <div class="produto-item">
-                    <div class="produto-info"><span class="p-icon">🧪</span><div><strong data-i18n="p2.cloro">Cloro Manutenção</strong><small data-i18n="p2.doseg">g por 1.000L</small></div></div>
+                    <div class="produto-info">
+                        <span class="p-icon">🧪</span>
+                        <div><strong data-i18n="p2.cloro">Cloro Manutenção</strong><small data-i18n="p2.doseg">g por 1.000L</small></div>
+                        <button class="btn-info" onclick="abrirInfo('cloro')">?</button>
+                    </div>
                     <div class="input-wrap compact"><input type="number" id="doseCloro" placeholder="Ex: 4" step="0.1" inputmode="decimal"><span class="unit">g</span></div>
                     <div class="resultado-inline hidden" id="resCloroDiv"><span data-i18n="p2.adicionar">Adicionar:</span> <span id="resCloro">—</span> <em>g</em></div>
                 </div>
                 <div class="produto-item">
-                    <div class="produto-info"><span class="p-icon">⚡</span><div><strong data-i18n="p2.choque">Cloro de Choque</strong><small data-i18n="p2.doseg">g por 1.000L</small></div></div>
+                    <div class="produto-info">
+                        <span class="p-icon">⚡</span>
+                        <div><strong data-i18n="p2.choque">Cloro de Choque</strong><small data-i18n="p2.doseg">g por 1.000L</small></div>
+                        <button class="btn-info" onclick="abrirInfo('choque')">?</button>
+                    </div>
                     <div class="input-wrap compact"><input type="number" id="doseCloroChoque" placeholder="Ex: 20" step="0.1" inputmode="decimal"><span class="unit">g</span></div>
                     <div class="resultado-inline hidden" id="resCloroChoqueDiv"><span data-i18n="p2.adicionar">Adicionar:</span> <span id="resCloroChoque">—</span> <em>g</em></div>
                 </div>
                 <div class="produto-item">
-                    <div class="produto-info"><span class="p-icon">🌀</span><div><strong data-i18n="p2.floc">Floculante</strong><small data-i18n="p2.dose1000">ml por 1.000L</small></div></div>
+                    <div class="produto-info">
+                        <span class="p-icon">🌀</span>
+                        <div><strong data-i18n="p2.floc">Floculante</strong><small data-i18n="p2.dose1000">ml por 1.000L</small></div>
+                        <button class="btn-info" onclick="abrirInfo('floculante')">?</button>
+                    </div>
                     <div class="input-wrap compact"><input type="number" id="doseFloculante" placeholder="Ex: 10" step="0.1" inputmode="decimal"><span class="unit">ml</span></div>
                     <div class="resultado-inline hidden" id="resFloculanteDiv"><span data-i18n="p2.adicionar">Adicionar:</span> <span id="resFloculante">—</span> <em>ml</em></div>
                 </div>
@@ -284,7 +342,7 @@
 
             <div class="input-field">
                 <label for="leituraVisor" data-i18n="p3.leitura">Leitura do visor (g/L ou ppm)</label>
-                <div class="input-wrap"><input type="number" id="leituraVisor" placeholder="Ex: 4700" value="4700" inputmode="numeric"><span class="unit">ppm</span></div>
+                <div class="input-wrap"><input type="number" id="leituraVisor" placeholder="Ex: 4700" inputmode="numeric"><span class="unit">ppm</span></div>
             </div>
 
             <div class="acoes-passo">
@@ -354,6 +412,17 @@
         </div>
         <button onclick="limparHistorico()" class="btn-limpar-hist" data-i18n="hist.limpar">🗑 Limpar Histórico</button>
     </aside>
+
+    <!-- MODAL INFO PRODUTO -->
+    <div class="modal-overlay hidden" id="modalOverlay" onclick="fecharInfo()"></div>
+    <div class="modal-info hidden" id="modalInfo">
+        <div class="modal-header">
+            <span class="modal-icon" id="modalIcone">🧂</span>
+            <h3 class="modal-titulo" id="modalTitulo">Sal</h3>
+            <button class="btn-fechar" onclick="fecharInfo()">✕</button>
+        </div>
+        <p class="modal-texto" id="modalTexto"></p>
+    </div>
 
 </div>
 

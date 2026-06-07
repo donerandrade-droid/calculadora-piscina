@@ -72,6 +72,8 @@ const traducoes = {
     'p1.btnCalc':      { pt: '💧 Calcular Volume',  en: '💧 Calculate Volume', es: '💧 Calcular Volumen' },
     'p1.btnZerar':     { pt: '♻️ Zerar',            en: '♻️ Reset',           es: '♻️ Limpiar'         },
     'p1.proxBtn':      { pt: 'Próximo: Produtos →', en: 'Next: Chemicals →',  es: 'Siguiente: Productos →' },
+    'p1.jasei':        { pt: 'Já sei o volume',     en: 'I know the volume',  es: 'Ya sé el volumen'   },
+    'p1.volumeDirectoLabel': { pt: 'Volume da piscina', en: 'Pool volume', es: 'Volumen de la piscina' },
 
     // ── RESULTADO VOLUME ──
     'vol.titulo':  { pt: '📋 Relatório de Litragem', en: '📋 Volume Report',    es: '📋 Reporte de Volumen' },
