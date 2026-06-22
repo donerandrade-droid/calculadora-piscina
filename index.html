@@ -2,36 +2,57 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PoolTech — Diagnóstico de Piscina</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    
+    <!-- SEO -->
+    <title>PoolTech — Calculadora e Diagnóstico de Piscina</title>
+    <meta name="description" content="Calcule o volume da sua piscina, dosagem de produtos químicos e monitore a salinidade do gerador de cloro. Grátis, rápido e funciona offline.">
+    <meta name="keywords" content="calculadora piscina, dosagem cloro, salinidade piscina, volume piscina, tratamento piscina">
+    <meta name="author" content="PoolTech">
+    <meta name="theme-color" content="#0f52ba">
+
+    <!-- Open Graph (compartilhamento em redes sociais) -->
+    <meta property="og:title" content="PoolTech — Calculadora de Piscina">
+    <meta property="og:description" content="Calcule volumes, produtos químicos e monitore a salinidade da sua piscina em poucos passos.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.calculadorapiscina.com.br">
+
+    <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3144/3144564.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3144/3144564.png">
+
+    <!-- FONTES OTIMIZADAS: preconnect + display=swap + só pesos usados -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap"></noscript>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="app-shell">
 
     <!-- HEADER FIXO -->
-    <header class="top-bar">
-        <div class="logo">
-            <span class="logo-icon">◈</span>
+    <header class="top-bar" role="banner">
+        <div class="logo" aria-label="PoolTech - Calculadora de Piscina">
+            <span class="logo-icon" aria-hidden="true">◈</span>
             <span class="logo-text">PoolTech</span>
         </div>
         <div class="top-bar-right">
             <!-- SELETOR DE IDIOMA DROPDOWN -->
-            <div class="lang-dropdown" id="langDropdown">
-                <button class="lang-ativo" onclick="toggleLangMenu()" id="langAtivo">🇧🇷 PT</button>
-                <div class="lang-menu hidden" id="langMenu">
-                    <button class="lang-opcao" data-lang="pt" onclick="selecionarIdioma('pt')">🇧🇷 Português</button>
-                    <button class="lang-opcao" data-lang="en" onclick="selecionarIdioma('en')">🇺🇸 English</button>
-                    <button class="lang-opcao" data-lang="es" onclick="selecionarIdioma('es')">🇦🇷 Español</button>
+            <div class="lang-dropdown" id="langDropdown" role="navigation" aria-label="Seletor de idioma">
+                <button class="lang-ativo" onclick="toggleLangMenu()" id="langAtivo" aria-haspopup="true" aria-expanded="false" aria-label="Idioma atual: Português">🇧🇷 PT</button>
+                <div class="lang-menu hidden" id="langMenu" role="menu">
+                    <button class="lang-opcao" data-lang="pt" onclick="selecionarIdioma('pt')" role="menuitem">🇧🇷 Português</button>
+                    <button class="lang-opcao" data-lang="en" onclick="selecionarIdioma('en')" role="menuitem">🇺🇸 English</button>
+                    <button class="lang-opcao" data-lang="es" onclick="selecionarIdioma('es')" role="menuitem">🇦🇷 Español</button>
                 </div>
             </div>
-            <button class="btn-historico-topo" onclick="abrirHistorico()">
-                <span>⏱</span>
+            <button class="btn-historico-topo" onclick="abrirHistorico()" aria-label="Abrir histórico de tratamentos">
+                <span aria-hidden="true">⏱</span>
                 <span data-i18n="header.historico">Histórico</span>
             </button>
         </div>
@@ -59,29 +80,29 @@
     <div class="right-col">
 
     <!-- NAVEGAÇÃO DE PASSOS -->
-    <nav class="steps-nav">
-        <button class="step-btn active" data-step="1" onclick="irParaPasso(1)">
-            <span class="step-num">01</span>
+    <nav class="steps-nav" aria-label="Etapas do diagnóstico">
+        <button class="step-btn active" data-step="1" onclick="irParaPasso(1)" aria-label="Etapa 1: Volume" aria-current="step">
+            <span class="step-num" aria-hidden="true">01</span>
             <span class="step-label" data-i18n="step.volume">Volume</span>
         </button>
-        <div class="step-line"></div>
-        <button class="step-btn" data-step="2" onclick="irParaPasso(2)">
-            <span class="step-num">02</span>
+        <div class="step-line" aria-hidden="true"></div>
+        <button class="step-btn" data-step="2" onclick="irParaPasso(2)" aria-label="Etapa 2: Produtos">
+            <span class="step-num" aria-hidden="true">02</span>
             <span class="step-label" data-i18n="step.produtos">Produtos</span>
         </button>
-        <div class="step-line"></div>
-        <button class="step-btn" data-step="3" onclick="irParaPasso(3)">
-            <span class="step-num">03</span>
+        <div class="step-line" aria-hidden="true"></div>
+        <button class="step-btn" data-step="3" onclick="irParaPasso(3)" aria-label="Etapa 3: Salinidade">
+            <span class="step-num" aria-hidden="true">03</span>
             <span class="step-label" data-i18n="step.salinidade">Salinidade</span>
         </button>
-        <div class="step-line"></div>
-        <button class="step-btn" data-step="4" onclick="irParaPasso(4)">
-            <span class="step-num">04</span>
+        <div class="step-line" aria-hidden="true"></div>
+        <button class="step-btn" data-step="4" onclick="irParaPasso(4)" aria-label="Etapa 4: Bomba">
+            <span class="step-num" aria-hidden="true">04</span>
             <span class="step-label" data-i18n="step.bomba">Bomba</span>
         </button>
     </nav>
 
-    <main class="main-content">
+    <main class="main-content" id="conteudo-principal">
 
         <!-- ==================== PASSO 1: VOLUME ==================== -->
         <section class="passo" id="passo-1">
@@ -426,14 +447,17 @@
 
 </div>
 
-<script src="i18n.js"></script>
-<script src="script.js"></script>
+<script src="i18n.js" defer></script>
+<script src="script.js" defer></script>
 <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./service-worker.js')
-      .then(() => console.log('Modo Offline ativado com sucesso!'))
-      .catch((err) => console.log('Erro ao ativar modo offline:', err));
-  }
+  // Registra service worker apenas após o load da página
+  window.addEventListener('load', () => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js')
+        .then(() => console.log('Modo Offline ativado!'))
+        .catch((err) => console.log('Erro SW:', err));
+    }
+  });
 </script>
 </body>
 </html>

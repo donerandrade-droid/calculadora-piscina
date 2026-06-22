@@ -1270,3 +1270,46 @@ input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
     color: var(--white-dim);
     line-height: 1.7;
 }
+
+/* =============================================
+   PERFORMANCE — OTIMIZAÇÕES
+   ============================================= */
+
+/* Garante que textos apareçam mesmo antes das fontes carregarem */
+body { font-display: swap; }
+
+/* Reduz repaints em elementos animados */
+.deco-ring, .logo-icon {
+    will-change: transform, opacity;
+}
+
+.card, .passo, .historico-item {
+    will-change: auto;
+}
+
+/* Lazy loading para imagens futuras */
+img { loading: lazy; }
+
+/* Melhora contraste para acessibilidade (WCAG AA) */
+.vol-label,
+.hist-bloco-label,
+.passo-desc,
+.input-hint {
+    color: rgba(240, 248, 255, 0.75);
+}
+
+label {
+    color: rgba(240, 248, 255, 0.8);
+}
+
+.produto-info small {
+    color: rgba(240, 248, 255, 0.7);
+}
+
+/* Focus visível para navegação por teclado */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 2px;
+}
