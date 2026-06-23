@@ -30,7 +30,7 @@
 
 body {
     background: var(--ocean-deep);
-    color: var(--white);
+    color: #f0f8ff;
     font-family: 'DM Sans', sans-serif;
     font-size: 15px;
     line-height: 1.6;
@@ -349,9 +349,10 @@ body {
     font-size: 2.8rem;
     font-weight: 800;
     color: var(--cyan);
-    opacity: 0.25;
+    opacity: 0.45;  /* era 0.25 — aumentado para contraste */
     line-height: 1;
     flex-shrink: 0;
+    aria-hidden: true;
 }
 
 .passo-titulo {
